@@ -10,5 +10,13 @@
             "name": "hessam hedayati",
             "email": "hessamhedayati@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-4": {
+            "Papioniha\\AuthorizationServerClient\\": "src/"
+        }
+    , "files": [
+            "src/helpers.php"
+        ]
+    }
 }
