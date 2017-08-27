@@ -7,7 +7,7 @@
  * Time: 12:01 PM
  */
 
-namespace Papion\AuthorizationServerClient;
+namespace Papioniha\AuthorizationServerClient;
 
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
 use League\OAuth2\Server\ResourceServer;

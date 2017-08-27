@@ -7,7 +7,7 @@
  * Time: 11:54 AM
  */
 
-namespace Papion\AuthorizationServerClient\Repositories;
+namespace Papioniha\AuthorizationServerClient\Repositories;
 
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
