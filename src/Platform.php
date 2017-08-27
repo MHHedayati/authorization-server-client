@@ -11,5 +11,5 @@ namespace Papion\AuthorizationServerClient;
 
 class Platform
 {
-
+    //TODO implement
 }
