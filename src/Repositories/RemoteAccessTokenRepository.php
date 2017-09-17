@@ -14,9 +14,21 @@ use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\ScopeEntityInterface;
 use League\OAuth2\Server\Exception\UniqueTokenIdentifierConstraintViolationException;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
+use Papioniha\AuthorizationServerClient\Platform;
 
 class RemoteAccessTokenRepository implements AccessTokenRepositoryInterface
 {
+
+    protected $platform;
+
+    /**
+     * RemoteAccessTokenRepository constructor.
+     * @param string $base_url
+     */
+    function __construct($base_url)
+    {
+        $this->platform = new Platform($base_url);
+    }
 
     /**
      * Create a new access token
@@ -63,6 +75,12 @@ class RemoteAccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function isAccessTokenRevoked($tokenId)
     {
-        // TODO: Implement isAccessTokenRevoked() method.
+        //TODO
+        $headers = [
+            'Authorization' => "",
+            'Accept' => 'application/json'
+        ];
+        $response = $this->platform->get("/access_tokens/$tokenId/revoked", null, $headers);
+        return (boolean)$response['response']['result']['revoked'];
     }
 }
