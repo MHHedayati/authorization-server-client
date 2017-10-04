@@ -80,4 +80,27 @@ class Platform
             'exception' => $exception
         );
     }
+
+    public function post($endpoint, $data, $headers){
+        $handle = curl_init();
+        $headersArray = [];
+        foreach ($headers as $key => $value){
+            array_push($headersArray, $key . ": " .$value);
+        }
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $headersArray);
+        curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($handle, CURLOPT_URL, $this->base_url . "/" . $endpoint);
+        curl_setopt($handle, CURLOPT_POST, true);
+        foreach ($data  as $k => $d) {
+            if (is_array($d)) {
+                foreach ($d as $i => $v){
+                    $data[$k.'['.$i.']'] = $v;
+                }
+                unset($data[$k]);
+            }
+        }
+        curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+    }
 }
