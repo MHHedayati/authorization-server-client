@@ -9,7 +9,20 @@
 
 namespace Papioniha\AuthorizationServerClient;
 
+use Papioniha\AuthorizationServerClient\Interfaces\TokenProviderInterface;
+
 class Client
 {
-    //TODO implement
+    protected $tokenProvider;
+    protected $url;
+
+    function __construct($tokenProvider, $url){
+        $this->url  = rtrim( (string) $url, '/' );
+        if(isInstanceOf($tokenProvider, TokenProviderInterface::class)){
+            $this->tokenProvider = $tokenProvider;
+        }else{
+            throw new \InvalidArgumentException();
+        }
+    }
+
 }

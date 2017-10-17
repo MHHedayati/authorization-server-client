@@ -102,5 +102,32 @@ class Platform
             }
         }
         curl_setopt($handle, CURLOPT_POSTFIELDS, $data);
+
+        $response = curl_exec($handle);
+        $responseCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
+        $contentType = curl_getinfo($handle, CURLINFO_CONTENT_TYPE);
+        /**
+         * checking for connection errors
+         * */
+        if ($curl_errno = curl_errno($handle)) {
+            // Connection Error
+            $curl_error = curl_error($handle);
+            throw new \Exception($curl_error, $curl_errno);
+        }
+        curl_close($handle);
+        $exception = null;
+        if (! ($responseCode >= 200 && $responseCode < 300) ) {
+            $message = $response;
+            if ($responseCode >= 300 && $responseCode < 400){
+                $message = 'Response Redirected To Another Uri.';
+            }
+            $exception = new \Exception($message, $responseCode);
+        }
+        return array(
+            'response' => $response,
+            'responseCode' => $responseCode,
+            'contentType' => $contentType,
+            'exception' => $exception
+        );
     }
 }
